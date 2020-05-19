@@ -70,4 +70,5 @@ False    Govs: Extended stay-at-home orders cannot be successful without issuing
 ```
 
 ## Conclusion
-The synthesizer generally worked better on users with longer tweets such as @AOC and was thrown off by inclusions such as replies and links
+One of the biggest obstacles in this project was having a sufficient amount of data, and even the length of the tweets ended up playing a difference. Users who tweet more formally such as @AOC might have a more easy to replicate style, unlike users who tweet more erratically or have shorters tweets such as @LilNasX or @Cher. 
+I still feel there are some issues with the sythesizer recognizing sentences that already exist in the corpus since some of @AOC's results look a bit too good to be true, but the results for a 4-gram did tend to skew on the more natural-sounding side. 
