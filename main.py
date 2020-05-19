@@ -47,9 +47,12 @@ def loadTweets (user):
 	c = twint.Config()
 
 	c.Username = user
+	c.Limit = 400
+	c.Count = True
 	c.Store_object = True
 	c.Hide_output = True
-
+	c.Retweets = False
+	c.Filter_retweets = True
 	twint.run.Search(c)
 	return twint.output.tweets_list
 
@@ -68,15 +71,15 @@ if __name__ == '__main__':
 
 	print('Working with', len(corpus), 'tweets as input')
 	for i, twt in enumerate(corpus):
-		corpus[i] = twt.tweet
+		corpus[i] = re.sub(r'(https://|pic\.)twitter\.com/.*', '', twt.tweet).strip()
 		dict = countNGrams(n, corpus[i], dict)
-	real = 0
-	for i in range(20):
+	realCt = 0
+	for i in range(n*5):
 		ch = chain(n, dict)
 		newTwt = chainToString(ch)
-		if newTwt in corpus:
-			real += 1
-		else:
-			print(newTwt)
+		real = newTwt in corpus
+		if real:
+			realCt += 1
+		print(real, '\t', newTwt)
 	
-	print(real, "tweets generated are existing tweets")
+	print(str(realCt) + '/' + str(n*5) + " tweets generated are real tweets (" + str(realCt/(n*5)) + ')')
